@@ -180,6 +180,39 @@ model with a first call before long autonomous tasks.
 06. Privilege Escalation  12. Miscellaneous
 ```
 
+## System-binary addons
+
+An addon can wrap a tool that is already installed on the operator host
+instead of cloning a repository. Omit `repo_url` and `install_path`: the
+command then runs from the LazyOwn working directory, nothing is cloned, and
+`install_command` is only printed as a hint when the binary is missing from
+`PATH`. Arguments typed after the verb are appended to `execute_command`.
+
+Parameters resolve in this order: the value in `payload.json`, then the
+`default` declared in the addon. `assign` only accepts keys that already
+exist in `payload.json`, so a parameter that is not a payload key keeps its
+default unless the key is added to `payload.json` by hand.
+
+| Addon | Binary | Input | Artefact |
+|-------|--------|-------|----------|
+| `subfinder` | `subfinder` | `domain` | `sessions/subfinder_<domain>.txt` |
+| `httpx` | `httpx-toolkit` | `domain` | `sessions/httpx_<domain>.txt` |
+| `semgrep` | `semgrep` | optional path argument | `sessions/semgrep_output.json` |
+| `osv_scanner` | `osv-scanner` | `osv_target` (default `.`) | `sessions/osv_scanner_output.json` |
+| `codeql` | `codeql` | `codeql_language`, `codeql_source` | `sessions/codeql_<language>.sarif` |
+| `aflpp` | `afl-fuzz` | target command as arguments | `sessions/afl_output/` |
+
+The `httpx` addon calls `httpx-toolkit` because the LazyOwn virtualenv
+installs the unrelated Python `httpx` client under the plain `httpx` name.
+Link the ProjectDiscovery binary under that name once:
+
+```sh
+ln -s "$(command -v httpx)" /usr/local/bin/httpx-toolkit
+```
+
+Run that command outside the virtualenv so `command -v` resolves to the
+ProjectDiscovery binary. Tests: `tests/test_devsecops_addons.py`.
+
 ## Running an addon
 
 ```

@@ -1,0 +1,32 @@
+name: osv_scanner
+description: >
+  Dependency vulnerability scanning with Google OSV-Scanner. Reads lockfiles
+  and manifests (requirements.txt, package-lock.json, go.mod, Cargo.lock and
+  others) and matches every package against the OSV database.
+  Usage:
+    osv_scanner
+    osv_scanner --lockfile path/to/requirements.txt
+  The directory in osv_target is scanned recursively; it defaults to the
+  LazyOwn working directory. Extra arguments are appended to the command
+  line.
+  Output is written to sessions/osv_scanner_output.json. The tool exits
+  non-zero when vulnerabilities are found.
+author: Google
+version: '2.0.0'
+enabled: true
+os: any
+trigger: []
+params:
+  - name: osv_target
+    type: string
+    required: false
+    default: "."
+    description: Directory scanned recursively for lockfiles and manifests.
+tool:
+  name: OSV-Scanner
+  install_command: go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest
+  execute_command: >
+    osv-scanner scan source -r --format json
+    --output-file sessions/osv_scanner_output.json
+    {osv_target}
+category: 02. Scanning & Enumeration

@@ -1905,6 +1905,7 @@ class LazyOwnShell(cmd2.Cmd):
                     else:
                         self.display_toastr(f"Error: Parameter '{param_name}' is missing and no default value is provided.", type='warning')
                         return
+                resolved_params = {**self.params, **param_values}
                 try:
                     install_path = None
                     if 'install_path' in tool:
@@ -1913,7 +1914,7 @@ class LazyOwnShell(cmd2.Cmd):
                             self.display_toastr(f"{tool['name']} is not installed. Installing...", type='warning')
                             self.cmd(f"git clone {tool['repo_url']} {install_path}")
                             if 'install_command' in tool:
-                                cmdinstall = replace_command_placeholders(tool['install_command'], self.params)
+                                cmdinstall = replace_command_placeholders(tool['install_command'], resolved_params)
                                 self.cmd(f"cd {install_path} && {cmdinstall}")
                                 self.cmd("sleep 2")
 
@@ -1923,7 +1924,7 @@ class LazyOwnShell(cmd2.Cmd):
                             install_hint = tool.get('install_command', f"git clone {tool.get('repo_url','')}")
                             print_warn(f"'{binary}' not found in PATH.")
                             print_warn(f"Install: {install_hint[:120]}")
-                        command_replaced = replace_command_placeholders(execute_command, self.params).strip()
+                        command_replaced = replace_command_placeholders(execute_command, resolved_params).strip()
                         if install_path:
                             if args:
                                 final_command = f"cd {install_path} && {command_replaced} {' '.join(args)}"
@@ -1944,7 +1945,7 @@ class LazyOwnShell(cmd2.Cmd):
                                 self.cmd("sleep 10")
 
                     if 'remote_command' in tool:
-                        remotecmd = replace_command_placeholders(tool['remote_command'], self.params)
+                        remotecmd = replace_command_placeholders(tool['remote_command'], resolved_params)
                         self.display_toastr(f"Remote command executing: {remotecmd}", type='info')
                         self.onecmd(f"issue_command_to_c2 {remotecmd}")
 
@@ -1955,7 +1956,7 @@ class LazyOwnShell(cmd2.Cmd):
                                 self.onecmd(f"download_c2 {file_path}")
 
                     if 'lazycommand' in tool:
-                        lazycommand = replace_command_placeholders(tool['lazycommand'], self.params)
+                        lazycommand = replace_command_placeholders(tool['lazycommand'], resolved_params)
                         self.display_toastr(f"Lazy Command executing: {lazycommand}", type='info')
                         for lazy_cmd in [c.strip() for c in lazycommand.split(',')]:
                             if lazy_cmd:

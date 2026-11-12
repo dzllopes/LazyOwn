@@ -1,0 +1,30 @@
+name: subfinder
+description: >
+  Passive subdomain enumeration with ProjectDiscovery subfinder.
+  Queries public sources (certificate transparency, DNS datasets, search
+  engines) without touching the target directly.
+  Usage:
+    assign domain example.com
+    subfinder
+    subfinder -all -recursive
+  Extra arguments are appended to the command line.
+  Output is written to sessions/subfinder_<domain>.txt, one host per line,
+  ready to feed the httpx addon.
+  MITRE: T1596 Search Open Technical Databases.
+author: ProjectDiscovery
+version: '2.17.0'
+enabled: true
+os: any
+trigger: []
+params:
+  - name: domain
+    type: string
+    required: true
+    description: Root domain to enumerate, read from payload.json.
+tool:
+  name: subfinder
+  install_command: go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+  execute_command: >
+    subfinder -silent -d {domain}
+    -o sessions/subfinder_{domain}.txt
+category: 01. Reconnaissance
