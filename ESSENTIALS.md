@@ -163,6 +163,6 @@ instead of failing silently.
 | 50 frequent commands by goal | `CHEATSHEET.md` |
 | All 748 commands with descriptions | `COMMANDS.md` (auto-generated) |
 | All 126 aliases | `COMMANDS.md` alias section |
-| Full MCP tool reference (153 tools) | `skills/lazyown.md` |
+| Full MCP tool reference (154 tools) | `skills/lazyown.md` |
 | Architecture and dev reference | `CLAUDE.md` |
 | Honest framework comparison | `COMPARISON.md` |

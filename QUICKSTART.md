@@ -170,7 +170,7 @@ Once a beacon checks in, manage it from the C2 dashboard at `https://<lhost>:<c2
 bash scripts/setup_hermes_mcp.sh
 ```
 
-Then restart Hermes or run `/reload-mcp`. LazyOwn exposes 153 MCP tools for AI-assisted operation.
+Then restart Hermes or run `/reload-mcp`. LazyOwn exposes 154 MCP tools for AI-assisted operation.
 
 See `AGENTS.md` for the Hermes integration guide.
 

@@ -155,7 +155,7 @@ bash scripts/setup_hermes_mcp.sh
 | `lazyown_facts_show` | After auto_populate — displays discovered ports, services, versions |
 | `lazyown_recommend_next` | When unsure what to do — Groq ranks 3-5 next commands |
 
-For the full 153-tool reference see `skills/lazyown.md`.
+For the full 154-tool reference see `skills/lazyown.md`.
 
 ---
 
@@ -208,7 +208,7 @@ LazyOwn uses three branches. Autonomous agents (Claude, Groq, SWAN) operate on `
 | `CHEATSHEET.md` | ~300 | ~40 frequent commands by user goal |
 | `QUICKSTART.md` | ~140 | First-time setup and onboarding |
 | `skills/lazyown/SKILL.md` | ~120 | Hermes skill definition |
-| `skills/lazyown.md` | ~1600 | Complete 153-tool MCP playbook |
+| `skills/lazyown.md` | ~1600 | Complete 154-tool MCP playbook |
 | `COMMANDS.md` | ~1600 | Full 748-command reference (auto-generated) |
 | `CLAUDE.md` | ~540 | Architecture and developer reference |
 

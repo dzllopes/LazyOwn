@@ -82,10 +82,10 @@
     "cli/commands/ux.py"
   ],
   "source_sha256": {
-    "lazyown.py": "ba83c26d112cf151c2634ad5d19b722c019ec3ec02b9f2bf431b964047592513",
+    "lazyown.py": "985bbf4c77e05db3b062c0f9212b87b76ce7ba6f8f5d453b6c56930b9a027984",
     "cli/commands/active_directory.py": "192e0142d72873886f4999c8f43c0bc847fc521431ffd370fd7168343fe7aeea",
     "cli/commands/ai.py": "f4fe5683d1d7189b3ef685409fbd17dbd57e5907601d58e7a32c4eddb91d3fa7",
-    "cli/commands/anti_forensics.py": "a49874a39ff7617ba2cac258c186fbb8fca6432769eb8aff253d2042a1a8ce43",
+    "cli/commands/anti_forensics.py": "8aa4e0ceaa3c58c24f884dc828edd4557288108825331c600f1143074591b791",
     "cli/commands/applocker_bypass.py": "b8338d5a39be0d9424409d9e5e2dc83f966a1ec4bf829bdf380c471fcea7ec40",
     "cli/commands/audit.py": "f374f86060903ce1ca64333f191ee9a68f05588aa064e8fe02c18e2e5240d47b",
     "cli/commands/automation.py": "0d4ee2afb478faa2a2f8978ca362b35d995250b9913fded4f29f9679fb4a8b7c",
@@ -120,12 +120,12 @@
     "cli/commands/exploit.py": "008a79702a5adb4e26736a369fe52508dfb02932bc8e4971f5017e88d27567a7",
     "cli/commands/exploit_migrated.py": "58f6d8a9c5033318507d8373397cdd992ae8cec26c9a4df2fa80bc36cf753063",
     "cli/commands/exploitgym.py": "365c98a1002f589c8d2143f605e0ed8d6d8668417fe14a5b1f8fd475d4398831",
-    "cli/commands/help_ui.py": "402a73baee9752d7f2813ef85b219655eb818612d0cd2998e25904af9dbd2065",
-    "cli/commands/infra.py": "42724151fd650585e1bbaf9c973103eb7fb16c664839cde65fbb4ae6bf0cfbf3",
+    "cli/commands/help_ui.py": "615a033b3ca0b3fa3ea07d8a186b3a2351f4a27bbc6044623cf82e1852f24da7",
+    "cli/commands/infra.py": "ced72ed00b238145c6d5592cac352cf46deaf22f39e70ebd573518c6f8be0345",
     "cli/commands/lab.py": "17f01629e966e9d729eb86332729309ca5d761b6e2b7087833ef7758fc1bf929",
     "cli/commands/lateral.py": "1d42361ff3341c33ff2a3761e5516822f2de672d824f5aa592750355b7b380e8",
     "cli/commands/lateral_migrated.py": "13b097f71511d9c64add437942afa3e80a9490525b811b1cad9818e83ce20212",
-    "cli/commands/marketplace.py": "2a1041703f5c89ab4e48f206a5d0bf9d4ccdb802c95bb059dd685c9e053734d5",
+    "cli/commands/marketplace.py": "c2ad4fc967beafbf2db30a45f0ad654d59edebfe7a4122496ce5a8945cd4151c",
     "cli/commands/mcp_bridge.py": "5fc7b89d95ea4159747aa83c105fdcc4b9f0c6eeee18001434072825cbadf2fa",
     "cli/commands/misc_migrated.py": "37d5eab0b777c0b6a529df2d823b3150551cfa8ccdab253c638ebba99840dbba",
     "cli/commands/mobile_macos.py": "4a1705515212bed4c8bae93694a2279e4ab20ac3b9dc63589a218180976a7379",
@@ -1736,7 +1736,7 @@
     },
     {
       "name": "do_wipe_logs",
-      "line": 38,
+      "line": 39,
       "summary": "Clear system log files on the remote target.",
       "category": null,
       "phase": "uncategorized",
@@ -1747,7 +1747,7 @@
     },
     {
       "name": "do_wipe_timeline",
-      "line": 103,
+      "line": 104,
       "summary": "Scrub file timestamps and shell history on the target.",
       "category": null,
       "phase": "uncategorized",
@@ -1758,7 +1758,7 @@
     },
     {
       "name": "do_shred",
-      "line": 150,
+      "line": 151,
       "summary": "Securely delete files by overwriting before removal.",
       "category": null,
       "phase": "uncategorized",
@@ -1769,7 +1769,7 @@
     },
     {
       "name": "do_wipe_free",
-      "line": 205,
+      "line": 206,
       "summary": "Wipe free disk space to prevent forensic file recovery.",
       "category": null,
       "phase": "uncategorized",
@@ -1780,7 +1780,7 @@
     },
     {
       "name": "do_clean_ad",
-      "line": 242,
+      "line": 243,
       "summary": "Clear Active Directory event logs and cached Kerberos tickets.",
       "category": null,
       "phase": "uncategorized",
@@ -1791,7 +1791,7 @@
     },
     {
       "name": "do_cover_tracks",
-      "line": 303,
+      "line": 304,
       "summary": "Run all anti-forensics operations in sequence.",
       "category": null,
       "phase": "uncategorized",
@@ -5058,7 +5058,7 @@
     },
     {
       "name": "do_tutorial",
-      "line": 137,
+      "line": 145,
       "summary": "Interactive tutorial that walks you through the golden path.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5069,7 +5069,7 @@
     },
     {
       "name": "do_help_phase",
-      "line": 160,
+      "line": 168,
       "summary": "List all commands for a given kill-chain phase.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5080,7 +5080,7 @@
     },
     {
       "name": "do_help_status",
-      "line": 191,
+      "line": 199,
       "summary": "Show which session requirements are met (rhost, creds, domain, OS).",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5091,7 +5091,7 @@
     },
     {
       "name": "do_ctx_help",
-      "line": 203,
+      "line": 211,
       "summary": "Show contextual help for a command: description, phase, requirements, tips.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5102,7 +5102,7 @@
     },
     {
       "name": "do_ctx",
-      "line": 223,
+      "line": 231,
       "summary": "Print a single-line operator context: rhost, lhost, domain, phase, os, creds.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5113,7 +5113,7 @@
     },
     {
       "name": "do_command_explorer",
-      "line": 235,
+      "line": 243,
       "summary": "Interactive command explorer organized by goals and phases.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5124,7 +5124,7 @@
     },
     {
       "name": "do_config_status",
-      "line": 267,
+      "line": 275,
       "summary": "Show configuration status grouped by category with set/missing indicators.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5135,7 +5135,7 @@
     },
     {
       "name": "do_tui_theme",
-      "line": 287,
+      "line": 295,
       "summary": "Switch the TUI colour theme used by the splash and styled output.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5146,7 +5146,7 @@
     },
     {
       "name": "do_doctor",
-      "line": 312,
+      "line": 320,
       "summary": "Preflight environment health check — verify the install is ready.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5157,7 +5157,7 @@
     },
     {
       "name": "do_karma",
-      "line": 347,
+      "line": 355,
       "summary": "Show ELO score, karma rank and exploration progress for this operator.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5168,7 +5168,7 @@
     },
     {
       "name": "do_tgrep",
-      "line": 381,
+      "line": 389,
       "summary": "Search across all previous command outputs and session logs.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5179,7 +5179,7 @@
     },
     {
       "name": "do_phase",
-      "line": 398,
+      "line": 406,
       "summary": "Get or set the current kill-chain phase.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5190,7 +5190,7 @@
     },
     {
       "name": "do_killchain",
-      "line": 432,
+      "line": 440,
       "summary": "Show the unified kill-chain progress and control auto-refresh.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5542,7 +5542,7 @@
     },
     {
       "name": "do_marketplace",
-      "line": 82,
+      "line": 104,
       "summary": "Discover and install community plugins, addons, and tools.",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -5553,7 +5553,7 @@
     },
     {
       "name": "do_marketplace_config",
-      "line": 333,
+      "line": 426,
       "summary": "Interactive marketplace manager (curses TUI).",
       "category": "12. Miscellaneous",
       "phase": "misc",
@@ -9788,7 +9788,7 @@
     },
     {
       "name": "do_set",
-      "line": 983,
+      "line": 839,
       "summary": "Set a parameter — the unified ``set``/``assign`` surface.",
       "category": null,
       "phase": "uncategorized",
@@ -9799,7 +9799,7 @@
     },
     {
       "name": "do_event_log",
-      "line": 4788,
+      "line": 4644,
       "summary": "Show recent EventBus events. Usage: event_log [N] [category]",
       "category": "Event Bus",
       "phase": "uncategorized",
@@ -9810,7 +9810,7 @@
     },
     {
       "name": "do_state_snapshot",
-      "line": 4817,
+      "line": 4673,
       "summary": "Show unified StateManager snapshot (DB + JSON caches).",
       "category": "State Manager",
       "phase": "uncategorized",
@@ -9821,7 +9821,7 @@
     },
     {
       "name": "do_route",
-      "line": 4849,
+      "line": 4705,
       "summary": "Route a natural-language prompt to a LazyOwn tool. Usage: route <prompt>",
       "category": "Unified Bridge",
       "phase": "uncategorized",
