@@ -1,0 +1,41 @@
+name: codeql
+description: >
+  Semantic code analysis with the GitHub CodeQL CLI. Builds a CodeQL
+  database from source and runs the standard security query pack for the
+  selected language, following data flow from sources to sinks.
+  Usage:
+    codeql
+    codeql --threads=4
+  The language in codeql_language (default python) and the source tree in
+  codeql_source (default the LazyOwn working directory) select what is
+  analysed. Extra arguments are appended to the analyze step.
+  The database is written to sessions/codeql_db_<language> and the findings
+  to sessions/codeql_<language>.sarif.
+  The query pack is downloaded on first use, so network access is required.
+  Compiled languages also need a working build of the source tree.
+author: GitHub
+version: '2.23.0'
+enabled: true
+os: any
+trigger: []
+params:
+  - name: codeql_language
+    type: string
+    required: false
+    default: python
+    description: Language to analyse (python, javascript, go, java, cpp, csharp, ruby).
+  - name: codeql_source
+    type: string
+    required: false
+    default: "."
+    description: Root of the source tree to analyse.
+tool:
+  name: CodeQL CLI
+  install_command: Download codeql-linux64.zip from the github/codeql-cli-binaries releases and add codeql to PATH
+  execute_command: >
+    codeql database create sessions/codeql_db_{codeql_language} --overwrite
+    --language={codeql_language} --source-root={codeql_source}
+    && codeql database analyze sessions/codeql_db_{codeql_language}
+    codeql/{codeql_language}-queries --download --format=sarif-latest
+    --output=sessions/codeql_{codeql_language}.sarif
+category: 02. Scanning & Enumeration

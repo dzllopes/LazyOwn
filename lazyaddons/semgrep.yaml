@@ -1,0 +1,26 @@
+name: semgrep
+description: >
+  Static application security testing with Semgrep. Matches source code
+  against the community rule registry to surface injection flaws, unsafe
+  deserialisation, weak cryptography and similar defects.
+  Usage:
+    semgrep
+    semgrep path/to/project
+    semgrep --severity ERROR path/to/project
+  Without arguments the current LazyOwn working directory is scanned.
+  Extra arguments are appended to the command line.
+  Output is written to sessions/semgrep_output.json.
+  Rules are fetched from the Semgrep registry, so network access is required.
+author: Semgrep Inc.
+version: '1.185.0'
+enabled: true
+os: any
+trigger: []
+params: []
+tool:
+  name: Semgrep
+  install_command: pipx install semgrep
+  execute_command: >
+    semgrep scan --config auto --json
+    --output sessions/semgrep_output.json
+category: 02. Scanning & Enumeration

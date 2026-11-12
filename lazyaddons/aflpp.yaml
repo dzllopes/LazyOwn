@@ -1,0 +1,37 @@
+name: aflpp
+description: >
+  Coverage-guided fuzzing with AFL++. Mutates the seed inputs and keeps the
+  ones that reach new code paths, saving every input that crashes or hangs
+  the target. Intended for compiled targets built with afl-cc.
+  Usage:
+    aflpp ./target @@
+    aflpp ./target --flag @@
+  The target command is passed as arguments; @@ is replaced by the path of
+  each generated input. Seeds are read from afl_input_dir (default
+  sessions/afl_input, which must hold at least one file) and the campaign
+  stops after afl_seconds seconds (default 60).
+  Output is written to sessions/afl_output, with crashes under
+  default/crashes.
+author: AFLplusplus
+version: '4.09c'
+enabled: true
+os: linux
+trigger: []
+params:
+  - name: afl_input_dir
+    type: string
+    required: false
+    default: sessions/afl_input
+    description: Directory holding the seed inputs.
+  - name: afl_seconds
+    type: string
+    required: false
+    default: "60"
+    description: Campaign duration in seconds.
+tool:
+  name: AFL++
+  install_command: apt-get install -y afl++
+  execute_command: >
+    afl-fuzz -i {afl_input_dir} -o sessions/afl_output
+    -V {afl_seconds} --
+category: 12. Miscellaneous
