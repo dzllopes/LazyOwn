@@ -46,4 +46,4 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements-dev.txt
       - name: mypy (core + cli)
-        run: mypy --config-file pyproject.toml core cli setup.py
+        run: mypy --config-file pyproject.toml --no-site-packages core cli setup.py

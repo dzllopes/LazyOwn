@@ -20,7 +20,7 @@ repos:
     hooks:
       - id: check-command-index
         name: check command_index.json
-        entry: env/bin/python scripts/build_command_index.py --check
+        entry: python3 scripts/build_command_index.py --check
         language: system
         files: '^(lazyown\.py|cli/commands/.*\.py|cli/commands/.*\.yaml)$'
         types_or: [python, yaml]
