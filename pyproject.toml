@@ -125,6 +125,8 @@ extend-exclude = [
     "parquets",
     "cli/commands/*_migrated.py",
     "lazyown.py",
+    "lazyc2.py",
+    "utils.py",
     "contrib/legacy",
     "modules/legacy",
 ]

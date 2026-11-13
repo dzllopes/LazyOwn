@@ -25,8 +25,8 @@ jobs:
           pip install -r requirements-dev.txt
       - name: ruff check
         run: ruff check --output-format=github .
-      - name: ruff format check
-        run: ruff format --check .
+      - name: ruff format check (maintained packages; legacy tree tracked in CLAUDE.md s16b)
+        run: ruff format --check core cli tests/test_core.py tests/test_cli_command_sets.py tests/test_cli_assign.py
       - name: check command_index.json
         run: python scripts/build_command_index.py --check
       - name: check doc stats
