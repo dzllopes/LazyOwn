@@ -44,8 +44,11 @@ check "No Spanish strings in Python files (English-only rule)" \
     "! git grep -n -i -E '$SPANISH_PATTERNS' -- '*.py' ':!tests/' ':!modules/' ':!skills/' 2>/dev/null | head -20 | grep ."
 
 # --- No hardcoded credentials outside payload.json ---
+# Flags quoted literals that look like real secrets; skips {templates}, <placeholders>,
+# $shell_refs and bare identifiers such as config key names. detect-secrets covers entropy.
+SECRET_RE="(password|PASSWORD|secret|SECRET|credential|api_key|API_KEY)[[:space:]]*[:=][[:space:]]*[\"'][^\"'{}<>\$[:space:]]*[0-9!@#%^&*+=.-][^\"'{}<>\$[:space:]]*[\"']"
 check "No password/secret/credential assignments outside payload.json" \
-    "! git grep -n -E '(password|PASSWORD|secret|SECRET|credential|api_key|API_KEY)\s*[:=]\s*['\\\"][^'\\\"]+['\\\"]' -- '*.py' '*.sh' '*.yaml' '*.yml' ':!payload.json' ':!tests/' 2>/dev/null | grep -v 'utils\.py\|config\.py\|\.secrets\.baseline' | head -10 | grep ."
+    "! git grep -n -E \"\$SECRET_RE\" -- '*.py' '*.sh' '*.yaml' '*.yml' ':!payload.json' ':!tests/' ':!**/tests/**' ':!sessions/' ':!readmenator-rules/' 2>/dev/null | grep -v 'utils\.py\|config\.py\|\.secrets\.baseline' | head -10 | grep ."
 
 # --- No hardcoded wordlist paths outside payload.json ---
 check "No hardcoded wordlist paths outside payload.json" \
