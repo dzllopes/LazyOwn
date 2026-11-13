@@ -131,7 +131,7 @@ LazyOwn is built around a modular, command-driven architecture that provides fle
 # LazyOwn Skills — MCP Integration
 
 Connect AI agents to the framework via the Model Context Protocol (MCP). The MCP server
-(`skills/lazyown_mcp.py`) exposes 153 tools covering the full engagement lifecycle.
+(`skills/lazyown_mcp.py`) exposes 154 tools covering the full engagement lifecycle.
 
 ```bash
 bash scripts/setup_hermes_mcp.sh   # register the MCP server

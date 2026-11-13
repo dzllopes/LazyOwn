@@ -19,20 +19,27 @@ Description: This file contains the definition of the logic in the LazyOwnShell 
 
 """
 
-from typing import Any
-
 import contextlib
-import cmd2
 import logging
 import sys
+from typing import Any
+
+import cmd2
 from cmd2 import with_category
 from cmd2.plugin import PostcommandData as _PostcommandData
 
-from cli.aliases import empty_placeholders as _empty_alias_placeholders
 from cli.aliases import REQUIRED_PLACEHOLDERS as _REQUIRED_ALIAS_PLACEHOLDERS
+from cli.aliases import empty_placeholders as _empty_alias_placeholders
 from cli.aliases import load_aliases as _load_aliases
+from cli.auto_crypto import AutoCryptoConfig as _AutoCryptoConfig
+from cli.auto_crypto import AutoCryptoEngine as _AutoCryptoEngine
+from cli.auto_crypto import build_password_provider_from_cli_login as _build_crypto_password_provider
 from cli.autosuggest import SuggestionContext as _SuggestionContext
 from cli.autosuggest import build_default_engine as _build_autosuggest_engine
+from cli.chain_mode import LOOP_GUARD_MARGIN as _CHAIN_GUARD_MARGIN
+from cli.chain_mode import MAX_STEPS_DEFAULT as _CHAIN_MAX_STEPS
+from cli.chain_mode import ChainModeConfig as _ChainModeConfig
+from cli.chain_mode import ChainPromptEngine as _ChainPromptEngine
 from cli.engagement_hooks import heal_commands_seen as _heal_engagement_history
 from cli.engagement_hooks import reset_session as _reset_engagement_session
 from cli.fuzzy_picker import install_fuzzy_completion as _install_fuzzy_completion
@@ -51,23 +58,16 @@ from cli.scope_guard import ScopeGuard as _ScopeGuard
 from cli.scope_guard import ScopeMode as _ScopeMode
 from cli.scope_guard import build_offensive_commands as _build_offensive_commands
 from cli.status_bar import build_default_manager as _build_status_bar_manager
+from cli.tips_engine import HINTS_LEVEL_ON as _HINTS_LEVEL_ON
+from cli.tips_engine import UI_HINTS_LEVELS as _UI_HINTS_LEVELS
+from cli.tips_engine import TipsEngine as _TipsEngine
+from cli.tips_engine import build_default_tips_config as _build_default_tips_config
 from cli.toast_bus import render_toasts as _render_toasts
 from core.config import load_and_validate as _load_and_validate
 from core.config import load_payload as _load_payload
 from core.config import save_payload as _save_payload
 from core.hardening import terminal_env as _terminal_env
 from core.safe_exec import needs_shell as _needs_shell
-from cli.auto_crypto import AutoCryptoEngine as _AutoCryptoEngine
-from cli.auto_crypto import AutoCryptoConfig as _AutoCryptoConfig
-from cli.auto_crypto import build_password_provider_from_cli_login as _build_crypto_password_provider
-from cli.chain_mode import ChainModeConfig as _ChainModeConfig
-from cli.chain_mode import ChainPromptEngine as _ChainPromptEngine
-from cli.chain_mode import LOOP_GUARD_MARGIN as _CHAIN_GUARD_MARGIN
-from cli.chain_mode import MAX_STEPS_DEFAULT as _CHAIN_MAX_STEPS
-from cli.tips_engine import HINTS_LEVEL_ON as _HINTS_LEVEL_ON
-from cli.tips_engine import TipsEngine as _TipsEngine
-from cli.tips_engine import UI_HINTS_LEVELS as _UI_HINTS_LEVELS
-from cli.tips_engine import build_default_tips_config as _build_default_tips_config
 from modules.event_bus import EventCategory as _EventCategory
 from modules.event_bus import EventSeverity as _EventSeverity
 from modules.event_bus import LazyEvent as _LazyEvent
@@ -107,7 +107,6 @@ from utils import (  # noqa: E402
     csv,
     curses,
     datetime,
-    parse_bool,
     exfiltration_category,
     getprompt,
     glob,
@@ -119,6 +118,7 @@ from utils import (  # noqa: E402
     load_user_aliases,
     miscellaneous_category,
     os,
+    parse_bool,
     post_exploitation_category,
     print_error,
     print_msg,
@@ -133,8 +133,8 @@ from utils import (  # noqa: E402
     scanning_category,
     shlex,
     startup_ns,
+    strip_ansi,
     subprocess,
-    sys,
     time,
     url_download,
     version,
@@ -2151,9 +2151,8 @@ class LazyOwnShell(cmd2.Cmd):
             _ux_debug("auto-login failed", exc)
 
         try:
-            from core.credential_vault import check_dangerous_defaults
-            from core.credential_vault import seal_payload
             from core.config import save_payload
+            from core.credential_vault import check_dangerous_defaults, seal_payload
             payload = load_payload()
             warnings = check_dangerous_defaults(payload)
             if warnings:
@@ -4678,7 +4677,7 @@ class LazyOwnShell(cmd2.Cmd):
             sm = get_state_manager()
             snap = sm.session_snapshot()
             print_msg(f"{'='*60}")
-            print_msg(f"  Campaign Snapshot")
+            print_msg("  Campaign Snapshot")
             print_msg(f"{'='*60}")
             print_msg(f"  Phase:  {snap.phase}")
             print_msg(f"  Target: {snap.active_target}")
@@ -4687,7 +4686,7 @@ class LazyOwnShell(cmd2.Cmd):
             print_msg(f"  Hosts:  {snap.total_hosts} | Services: {snap.total_services} | Vulns: {snap.total_vulns} | Creds: {snap.total_creds}")
             print_msg(f"  Pending objectives: {snap.pending_objectives}")
             if snap.hosts:
-                print_msg(f"  --- Hosts ---")
+                print_msg("  --- Hosts ---")
                 for h in snap.hosts:
                     print_msg(f"    {h.address} [{h.state}] {h.hostname} ({h.os}) svc={h.services_count} creds={h.creds_count} vulns={h.vulns_count}")
             if snap.credentials:

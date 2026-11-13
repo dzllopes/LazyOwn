@@ -26,10 +26,10 @@ from pathlib import Path
 from typing import Any
 
 from rich.text import Text
+from textual import work
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.message import Message
-from textual import work
 from textual.widgets import Button, Footer, Header, Input, Log, Static
 
 from cli.killchain import PhaseProgress
@@ -427,7 +427,6 @@ class KillChainPanel(Static):
             self.post_message(PhaseSelected(self._phase_keys[index]))
 
 
-
 class ConfigPanel(Static):
     """Left panel: key payload.json values."""
 
@@ -704,7 +703,6 @@ class OutputPanel(Log):
     """
 
 
-
 class NextStepsPanel(Static):
     """Right panel: AI-ranked next-step recommendations."""
 
@@ -973,7 +971,7 @@ class LazyOwnDashboard(App):
         try:
             payload = _read_json(self._payload_path)
             data = {
-                "exported_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+                "exported_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),  # noqa: UP017  requires-python is 3.10
                 "payload": {k: payload.get(k) for k in ("rhost", "lhost", "domain")},
                 "recent_commands": _read_recent_commands(),
                 "hints": _graph_hints(),
@@ -1036,9 +1034,7 @@ class LazyOwnDashboard(App):
         self.query_one("#top-bar", TargetPanel).update_data(payload, world)
         self.query_one("#kill-chain", KillChainPanel).update_data(killchain)
         self.query_one("#config-panel", ConfigPanel).update_data(payload)
-        self.query_one("#commands-panel", CommandsPanel).update_data(
-            self._filter_commands(commands)
-        )
+        self.query_one("#commands-panel", CommandsPanel).update_data(self._filter_commands(commands))
         self.query_one("#reasoning-panel", ReasoningPanel).update_data(reasoning)
         self.query_one("#next-steps", NextStepsPanel).update_data(recommendations)
         try:
@@ -1048,7 +1044,6 @@ class LazyOwnDashboard(App):
         self.query_one("#toast-panel", ToastPanel).update_data(payload, self._sessions_dir, width)
         self.query_one("#ops-panel", OpsPanel).update_data(world, tasks, creds, hashes, beacons, cred_lines)
         self.query_one("#hint-bar", HintBar).update_data(hints)
-
 
     def _filter_commands(self, commands: list[dict]) -> list[dict]:
         """Keep only commands belonging to the phase selected by click.
